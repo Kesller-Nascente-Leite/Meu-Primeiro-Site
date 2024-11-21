@@ -4,7 +4,7 @@
 session_start();
 $msg = '';
 if (isset($_POST['enviar'])) {
-    include '../configdb.php';
+    include "../../configdb.php";
 
     try {
         $email = $_POST['email'];

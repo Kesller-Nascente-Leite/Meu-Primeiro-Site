@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "../configdb.php";
+include "../../configdb.php";
 $msg = "";
 if (isset($_POST['delete'])) {
     try {

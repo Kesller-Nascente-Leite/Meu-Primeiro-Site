@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-include '../Site/configdb.php';
+include "../../configdb.php";
 // Por enquanto em sessão 
 if (isset($_SESSION['paciente'])) {
     $paciente = $_SESSION['paciente'];

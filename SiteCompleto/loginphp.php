@@ -5,7 +5,7 @@ $msg = '';
 
 try {
     if (isset($_POST['submit'])) {
-        include '../configdb.php';
+        include "../../configdb.php";
         
         // Captura as variáveis do formulário
         $email = $_POST['email'];

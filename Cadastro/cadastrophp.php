@@ -3,7 +3,7 @@
 session_start();
 $msg = "";
 if (isset($_POST['enviar'])) {
-    include '../configdb.php';
+    include "../../configdb.php";
     // incluindo a pdo do pg admin
 
     try {

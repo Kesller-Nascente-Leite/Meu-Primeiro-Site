@@ -5,7 +5,7 @@ session_start();
 $msg = "";
 //Iniciando a conexao o com o banco de dados
 if (isset($_POST['enviar'])) {
-    include '../configdb.php';
+    include "../../configdb.php";
     // incluindo a pdo do pg admin
 
     try {
