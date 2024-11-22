@@ -1,12 +1,11 @@
 <?php
-
 session_start();
 include "../../configdb.php";
 // Por enquanto em sessão 
 if (isset($_SESSION['paciente'])) {
     $paciente = $_SESSION['paciente'];
 } else {
-    $paciente = $_SESSION['paciente'] = "Usuario desconhecido";
+    $paciente = $_SESSION['paciente'] = "Usuario não logado";
 }
 
 
@@ -19,7 +18,7 @@ if (isset($_SESSION['paciente'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Site</title>
 
     <style>
         body {

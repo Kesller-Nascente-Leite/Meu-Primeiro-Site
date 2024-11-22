@@ -18,7 +18,7 @@ if (isset($_POST['delete'])) {
             $senhaDoPaciente = $paciente["senha"];
 
             if (password_verify($senha, $senhaDoPaciente)) {
-                $query = "DELETE FROM paciente where id = :id";
+                $query = "DELETE FROM paciente WHERE id = :id";
                 $deletando = $conn->prepare($query);
                 $deletando->bindParam(":id", $id);
                 $deletando->execute();
