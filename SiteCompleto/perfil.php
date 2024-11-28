@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+session_start();
+include_once "../../configdb.php";
+if (isset($_SESSION['paciente'])) {
+    $paciente = $_SESSION['paciente'];
+} else {
+    $paciente = $_SESSION['paciente'] = "Usuario não logado";
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,6 +52,7 @@
     <article>
 
         <div id="container">
+        <h3>Nome da Conta <?php echo HTMLSPECIALCHARS($paciente); ?></h3>
             <label for="Modo escuro">Modo Escuro:
                 Sim<input type="checkbox" name="escuto" onclick="escuro()">
                 Não<input type="checkbox">
@@ -54,7 +64,7 @@
                 <input type="email" placeholder="Confirme o seu Email" name="email" id="pemail" required maxlength="100"><br>
 
                 <input type="password" placeholder="Confirme a Sua senha" name="senha" id="psenha"><br>
-                
+
                 <?php
                 session_start();
                 if (isset($_SESSION['msg'])) {

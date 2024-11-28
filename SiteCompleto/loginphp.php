@@ -19,10 +19,10 @@ try {
 
         if ($stmt->execute() and $stmt->rowCount() > 0) {
             // Obtém os dados do usuário
-            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             // Verifica a senha usando password_verify
-            if (password_verify($senha, $user['senha'])) {
-                $_SESSION['paciente'] = $user['paciente']; // Define a sessão com o nome do usuário
+            if (password_verify($senha, $usuario['senha'])) {
+                $_SESSION['paciente'] = $usuario['paciente']; // Define a sessão com o nome do usuário
                 header("Location: site.php");
                 exit();
             } else {

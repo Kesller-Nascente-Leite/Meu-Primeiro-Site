@@ -2,6 +2,8 @@
 session_start();
 include "../../configdb.php";
 $msg = "";
+// Por enquanto em sessão 
+
 if (isset($_POST['delete'])) {
     try {
         $email = $_POST["email"];
@@ -27,25 +29,21 @@ if (isset($_POST['delete'])) {
                     $_SESSION["msg"] = "Conta excluida";
                     header("location:index.php");
                     exit();
-                }
-                else{      
+                } else {
                     $_SESSION["msg"] = "Conta não existe";
                     header("location:perfil.php");
                     exit();
-                }
-
+                }   
             } else {
                 $_SESSION["msg"] = "Senha invalida";
                 header("location:perfil.php");
                 exit();
             }
-
         } else {
             $_SESSION["msg"] = "Email invalido";
             header("location:perfil.php");
             exit();
         }
-
     } catch (PDOException $e) {
         echo "Erro: ", $e->getMessage();
     }
