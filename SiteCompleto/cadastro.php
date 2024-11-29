@@ -39,8 +39,8 @@
                 <form method="POST" autocomplete="off" action="<?php echo htmlspecialchars('cadastrophp.php'); ?>">
 
                     <label for="pnome">Nome do Paciente:
-                        <input type="text" placeholder="Nome" name="paciente" id="pnome" minlength="2" maxlength="50"
-                            required>
+                        <input type="text" placeholder="Nome" name="paciente" id="pnome" minlength="2" maxlength="50" required aria-label="Nome do paciente">
+
                     </label><br>
                     <label for="pemail">Email:
                         <input type="email" placeholder="Email" name="email" id="pemail" required maxlength="100">
@@ -50,13 +50,14 @@
                         <input type="password" placeholder="No mínimo 8 caracteres com letras e números" name="senha"
                             id="psenha" minlength="8" maxlength="50" required>
                     </label><br>
-                    
+
                     <label for="Data de nascimento">Data de Nascimento
                         <input type="date" name="nascimento" id="pnascimento" required>
                     </label><br>
 
                     <label for="Telefone">Telefone
-                    <input type="tel" name="telefone" id="ptel" maxlength="15" required>
+                        <input type="tel" name="telefone" id="ptel" maxlength="15" required pattern="\(\d{2}\)\s\d{4,5}-\d{4}" placeholder="(XX) XXXX-XXXX">
+
                     </label><br>
 
                     <label for="sexo">Sexo:</label><br>
