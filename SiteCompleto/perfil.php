@@ -44,7 +44,7 @@ if (isset($_SESSION['paciente'])) {
     <header>
         <nav>
             <button type="submit" name="home" value="home" aria-label="Página inicial" onclick="home()">Home</button>
-            <button type="submit" name="" value="atendimento" aria-label="">Atendimento</button>
+            <button type="submit" name="" value="atendimento" aria-label="">Atendimentos</button>
             <button type="submit" name="" value="sobre" aria-label="">Sobre</button>
             <button type="submit" name="" value="perfil" aria-label="Perfil" onclick="perfil()">Perfil</button>
         </nav>

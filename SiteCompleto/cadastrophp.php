@@ -13,6 +13,7 @@ class Cadastro
     public $nascimento;
     public $telefone;
     public $conn;
+    
     public function __construct($conn, $paciente, $email, $sexo, $senha, $nascimento, $telefone)
     {
 

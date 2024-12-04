@@ -14,8 +14,13 @@
     function home() {
         window.location.href = "site.php";
     }
-    function perfil(){
+
+    function perfil() {
         location.href = 'perfil.php';
+    }
+
+    function atendimento() {
+        location.href = 'atendimento.php';
     }
 </script>
 
@@ -23,10 +28,10 @@
     <!--Falta o javaScrip-->
     <header>
         <nav>
-            <button type="submit" name="home" value="home" aria-label="Página inicial" onclick="home()">Home</button>
-            <button type="submit" name="" value="atendimento" aria-label="">Atendimento</button>
-            <button type="submit" name="" value="sobre" aria-label="">Sobre</button>
-            <button type="submit" name="" value="perfil" aria-label="Perfil">Perfil</button>
+            <button type="submit" name="home" value="home" onclick="home()">Home</button>
+            <button type="submit" name="" value="Atendimentos" onclick="atendimento()">Atendimentos</button>
+            <button type="submit" name="" value="sobre">Sobre</button>
+            <button type="submit" name="perfil" value="perfil">Perfil</button>
         </nav>
     </header>
 

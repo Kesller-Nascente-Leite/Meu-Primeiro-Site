@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="cadastro.css">
 
     <script>
-        //criando funcionalidade do botão para redirecionar para as outras abas
         function home() {
             window.location.href = 'index.php';
         }
-
         function perfil() {
             location.href = 'perfil.php';
+        }
+        function atendimento(){
+            location.href = 'atendimento.php';
         }
     </script>
 </head>
@@ -23,10 +24,10 @@
 
     <header>
         <nav>
-            <button type="submit" name="home" value="home" aria-label="Página inicial" onclick="home()">Home</button>
-            <button type="submit" name="" value="Atendimentos" aria-label="">Atendimentos</button>
-            <button type="submit" name="" value="sobre" aria-label="">Sobre</button>
-            <button type="submit" name="perfil" value="perfil" aria-label="Perfil">Perfil</button>
+            <button type="submit" name="home" value="home"onclick="home()">Home</button>
+            <button type="submit" name="" value="Atendimentos" onclick="atendimento()">Atendimentos</button>
+            <button type="submit" name="" value="sobre" >Sobre</button>
+            <button type="submit" name="perfil" value="perfil">Perfil</button>
         </nav>
     </header>
 
@@ -56,7 +57,7 @@
                     </label><br>
 
                     <label for="Telefone">Telefone
-                        <input type="tel" name="telefone" id="ptel" maxlength="15" required pattern="\(\d{2}\)\s\d{4,5}-\d{4}" placeholder="(XX) XXXX-XXXX">
+                        <input type="tel" name="telefone" id="ptel" maxlength="15" required pattern="\(\d{2}\)\s\d{4,5}-\d{4}" placeholder="(XX) XXXXX-XXXX">
 
                     </label><br>
 

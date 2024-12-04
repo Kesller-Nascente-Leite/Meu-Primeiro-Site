@@ -22,7 +22,7 @@ try {
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
             // Verifica a senha usando password_verify
             if (password_verify($senha, $usuario['senha'])) {
-                $_SESSION['paciente'] = $usuario['paciente']; // Define a sessão com o nome do usuário
+                $_SESSION['paciente'] = $usuario['paciente']; 
                 header("Location: site.php");
                 exit();
             } else {

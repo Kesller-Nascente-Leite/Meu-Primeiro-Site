@@ -72,6 +72,10 @@ if (isset($_SESSION['paciente'])) {
         function perfil() {
             location.href = "perfil.php";
         }
+
+        function atendimento() {
+            location.href = 'atendimento.php';
+        }
     </script>
 </head>
 
@@ -79,7 +83,7 @@ if (isset($_SESSION['paciente'])) {
     <header>
         <nav>
             <button type="submit" name="home" value="home" aria-label="Página inicial" onclick="home()">Home</button>
-            <button type="submit" name="" value="quizzes" aria-label="">Atendimento</button>
+            <button type="submit" name="" value="Atendimentos" onclick="atendimento()">Atendimentos</button>
             <button type="submit" name="" value="sobre" aria-label="">Sobre</button>
             <button type="submit" name="" value="perfil" aria-label="Perfil" onclick="perfil()">Perfil</button>
         </nav>
