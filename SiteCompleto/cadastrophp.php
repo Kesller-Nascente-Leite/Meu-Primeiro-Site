@@ -5,7 +5,7 @@ $msg = "";
 
 class Cadastro
 {
-
+    public $id;
     public $paciente;
     public $email;
     public $senha;
@@ -14,10 +14,11 @@ class Cadastro
     public $telefone;
     public $conn;
     
-    public function __construct($conn, $paciente, $email, $sexo, $senha, $nascimento, $telefone)
+    public function __construct($conn,$id,$paciente, $email, $sexo, $senha, $nascimento, $telefone)
     {
 
         $this->conn = $conn;
+        $this->id = $id;
         $this->paciente = $paciente;
         $this->email = $email;
         $this->senha = $senha;
@@ -85,7 +86,7 @@ class Cadastro
 if (isset($_POST['enviar'])) {
     include_once "../../configdb.php";
     try {
-        $cadastro = new Cadastro($conn, $_POST['paciente'], $_POST['email'], $_POST['sexo'], $_POST['senha'], $_POST['nascimento'], $_POST['telefone']);
+        $cadastro = new Cadastro($conn,$id,$_POST['paciente'], $_POST['email'], $_POST['sexo'], $_POST['senha'], $_POST['nascimento'], $_POST['telefone']);
 
         $cadastro->checandoEmail();
         $cadastro->cadastrando();

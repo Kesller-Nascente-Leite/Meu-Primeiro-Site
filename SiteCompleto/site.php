@@ -80,14 +80,14 @@ if (isset($_SESSION['paciente'])) {
 </head>
 
 <body>
-    <header>
-        <nav>
-            <button type="submit" name="home" value="home" aria-label="Página inicial" onclick="home()">Home</button>
-            <button type="submit" name="" value="Atendimentos" onclick="atendimento()">Atendimentos</button>
-            <button type="submit" name="" value="sobre" aria-label="">Sobre</button>
-            <button type="submit" name="" value="perfil" aria-label="Perfil" onclick="perfil()">Perfil</button>
-        </nav>
-    </header>
+<header>
+    <nav>
+        <button type="button" name="home" onclick="home()">Home</button>
+        <button type="button" onclick="atendimento()">Atendimentos</button>
+        <button type="button" onclick="sobre()">Sobre</button>
+        <button type="button" onclick="perfil()">Perfil</button>
+    </nav>
+</header>
     <!--Beta, dps virará index-->
 
     <h1>Bem vindo <?php echo HTMLSPECIALCHARS($paciente); ?></h1>

@@ -33,8 +33,25 @@ button:hover {
     background-color: rgb(47, 47, 161);
 }
 
-#tabela{
-    border: 2px solid black;
+table {
+    border: 1 solid black;
     background-color: white;
+    font-size: auto;
+    border-radius: 5px;
 
+}
+
+.dados {
+    display: inline;
+    color: rgb(113, 55, 80);
+    font-style: italic;
+    align-items: center;
+    margin-left: 8%;
+}
+#dados {
+    display: inline;
+    color: rgb(113, 55, 80);
+    font-style: italic;
+    align-items: center;
+    margin-left: 6%;
 }

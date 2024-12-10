@@ -1,5 +1,5 @@
 <?php
-include_once "cadastrophp.php";
+session_start();
 include_once "atendimentophp.php";
 ?>
 <!DOCTYPE html>
@@ -14,10 +14,12 @@ include_once "atendimentophp.php";
         function home() {
             window.location.href = 'index.php';
         }
+
         function perfil() {
             location.href = 'perfil.php';
         }
-        function atendimento(){
+
+        function atendimento() {
             location.href = 'atendimento.php';
         }
     </script>
@@ -26,25 +28,21 @@ include_once "atendimentophp.php";
 <body>
     <header>
         <nav>
-            <button type="submit" name="home" value="home" onclick="home()">Home</button>
-            <button type="submit" name="" value="Atendimentos" onclick="atendimento()">Atendimentos</button>
-            <button type="submit" name="" value="sobre">Sobre</button>
-            <button type="submit" name="perfil" value="perfil">Perfil</button>
+            <button type="button" name="home" onclick="home()">Home</button>
+            <button type="button" onclick="atendimento()">Atendimentos</button>
+            <button type="button" onclick="sobre()">Sobre</button>
+            <button type="button" onclick="perfil()">Perfil</button>
         </nav>
     </header>
     <center>
 
-        <h1>Atendimentos Acontecidos</h1>
-        <h3 id="h3"><?php echo htmlspecialchars($paciente); ?>
-        </h3>
-        <table id="tabela">
-            <tr>
-                <td>
-                    <?php
-                    $atendimeto->historico();
-                    ?>
-                </td>
-            </tr>
+        <h1>Atendimentos Realizados</h1>
+        <br>
+
+        <?php
+        $atendimeto->get_historico();
+        ?>
+
         </table>
     </center>
 </body>
