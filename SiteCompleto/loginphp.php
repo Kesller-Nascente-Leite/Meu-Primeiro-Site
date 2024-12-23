@@ -1,16 +1,13 @@
 <?php
 session_start();
-$msg = '';
-
+include 'verifica_sessao.php';
 
 try {
     if (isset($_POST['submit'])) {
         include "../../configdb.php";
 
-        // Captura as variáveis do formulário
         $email = $_POST['email'];
         $senha = $_POST['senha'];
-
 
         $sql = "SELECT * FROM paciente WHERE email = :email";
 
@@ -21,7 +18,7 @@ try {
 
 
             $usuario = $procurando->fetch(PDO::FETCH_ASSOC);
-            $id = $procurando->fetch(PDO::FETCH_ASSOC);
+            $id = $usuario['id'];
 
 
             if (password_verify($senha, $usuario['senha'])) {
@@ -45,4 +42,4 @@ try {
     header("Location: index.php");
     exit();
 }
-session_write_close();
+

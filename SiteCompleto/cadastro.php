@@ -57,7 +57,7 @@
                     </label><br>
 
                     <label for="Telefone">Telefone
-                        <input type="tel" name="telefone" id="ptel" minlength="14" maxlength="15" required  placeholder="(XX) XXXX-XXXX">
+                        <input type="tel" name="telefone" id="ptel" minlength="14" maxlength="15" required  placeholder="XX XXXXX-XXXX">
 
                     </label><br>
 

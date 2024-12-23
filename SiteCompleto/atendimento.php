@@ -38,12 +38,25 @@ include_once "atendimentophp.php";
 
         <h1>Atendimentos Realizados</h1>
         <br>
-
         <?php
-        $atendimeto->get_historico();
+        if (isset($_SESSION['id'])) {
+            $id = $_SESSION['id'];
+            $atendimeto = new Atendimento($conn, $id, );
+            
+            $atendimeto->historico();
+            echo"<br><p font:>Total de Atendimentos: ";
+            $atendimeto->totalDeAtendimentos();
+            echo "</p>";
+            
+            
+        } else {
+            $id = "Cadastro nescessario";
+            echo $id;
+        }
+
         ?>
 
-        </table>
+
     </center>
 </body>
 

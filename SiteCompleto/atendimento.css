@@ -55,3 +55,7 @@ table {
     align-items: center;
     margin-left: 6%;
 }
+p{
+    color: rgb(51, 136, 197);
+    font-style: italic;
+}

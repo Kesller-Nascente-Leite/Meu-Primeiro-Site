@@ -1,24 +1,22 @@
 <?php
-
 session_start();
+
 $msg = "";
 
 class Cadastro
 {
-    public $id;
-    public $paciente;
-    public $email;
-    public $senha;
-    public $sexo;
-    public $nascimento;
-    public $telefone;
-    public $conn;
+    private $paciente;
+    private $email;
+    private $senha;
+    private $sexo;
+    private $nascimento;
+    private $telefone;
+    private $conn;
     
-    public function __construct($conn,$id,$paciente, $email, $sexo, $senha, $nascimento, $telefone)
+    public function __construct($conn,$paciente, $email, $sexo, $senha, $nascimento, $telefone)
     {
 
         $this->conn = $conn;
-        $this->id = $id;
         $this->paciente = $paciente;
         $this->email = $email;
         $this->senha = $senha;
@@ -29,6 +27,7 @@ class Cadastro
 
     public function checandoEmail()
     {        
+
         try {
 
             // Verificando se o e-mail já existe
@@ -50,7 +49,7 @@ class Cadastro
         }
     }
 
-
+    
     public function cadastrando()
     {
         try {
@@ -72,11 +71,8 @@ class Cadastro
             if ($enviando->execute()) {
                 header("Location: index.php");
                 exit();
-            } else {
-                error_log("Erro ao inserir os dados no banco de dados.");
-            }
+            } 
         } catch (PDOException $e) {
-            error_log($e->getMessage());
             echo "Erro ao acessar o banco de dados.";
         }
     }
@@ -86,7 +82,7 @@ class Cadastro
 if (isset($_POST['enviar'])) {
     include_once "../../configdb.php";
     try {
-        $cadastro = new Cadastro($conn,$id,$_POST['paciente'], $_POST['email'], $_POST['sexo'], $_POST['senha'], $_POST['nascimento'], $_POST['telefone']);
+        $cadastro = new Cadastro($conn,$_POST['paciente'], $_POST['email'], $_POST['sexo'], $_POST['senha'], $_POST['nascimento'], $_POST['telefone']);
 
         $cadastro->checandoEmail();
         $cadastro->cadastrando();

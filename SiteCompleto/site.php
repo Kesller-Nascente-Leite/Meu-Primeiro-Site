@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../../configdb.php";
+include 'verifica_sessao.php';
 // Por enquanto em sessão 
 if (isset($_SESSION['paciente'])) {
     $paciente = $_SESSION['paciente'];

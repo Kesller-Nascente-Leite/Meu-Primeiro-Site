@@ -5,73 +5,84 @@ class Atendimento
 {
     private $conn;
     private $id;
-    private $pontuario;
-    private $observacoes;
-    private $historico;
-    private $examesResultados;
 
-    public function __construct($conn, $id, $pontuario, $observacoes, $historico, $examesResultados)
+    public function __construct($conn, $id, )
     {
         $this->conn = $conn;
         $this->id = $id;
-        $this->pontuario  = $pontuario;
-        $this->observacoes = $observacoes;
-        $this->historico = $historico;
-        $this->examesResultados = $examesResultados;
+
     }
 
 
 
-    private function set_historico($connNovo, $idNovo)
+    public function historico()
     {
-        $this->conn = $connNovo;
-        $this->id = $idNovo;
+        try {
+            $this->conn;
+            $this->id;
 
-        $query = 'SELECT paciente.paciente, pontuario.observacoes_gerais, pontuario.historico_atendimento 
+            $query = 'SELECT paciente.paciente, pontuario.observacoes_gerais, pontuario.historico_atendimento 
         FROM pontuario 
         INNER JOIN paciente ON pontuario.id_paciente = paciente.id
         WHERE pontuario.id_paciente = :id';
 
-        $query = $connNovo->prepare($query);
-        $query->bindParam(':id', $idNovo, PDO::PARAM_INT);
-        if ($query->execute()) {
+            $vendoHistorico = $this->conn->prepare($query);
+            $vendoHistorico->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $vendoHistorico->execute();
 
-            echo "<table border='1'>\n";
+            if ($vendoHistorico->rowCount() > 0) {
 
-            echo "<strong class = 'dados'>\tPaciente</strong>\t";
+                echo "<table border='1'>\n";
 
-            echo "\t<strong class = 'dados'>Resultado</strong>\t";
+                echo "<strong class = 'dados'>\tPaciente</strong>\t";
 
-            echo "\t<strong id = 'dados'>Data do Exame</strong>\t";
+                echo "\t<strong class = 'dados'>Resultado</strong>\t";
 
-            while ($linha = $query->fetch(PDO::FETCH_ASSOC)) {
-                echo "\t<tr>\n";
-                foreach ($linha as $colunas) {
-                    echo "\t<td>" . htmlspecialchars($colunas) . "</td>\n";
+                echo "\t<strong id = 'dados'>Data do Exame</strong>\t";
+
+                while ($linha = $vendoHistorico->fetch(PDO::FETCH_ASSOC)) {
+                    echo "\t<tr>\n";
+                    foreach ($linha as $colunas) {
+                        echo "\t<td>" . htmlspecialchars($colunas) . "</td>\n";
+                    }
+                    echo "\t</tr>\n";
                 }
-                echo "\t</tr>\n";
+                echo "</table>\n";
+            } else {
+                echo "<p>Sem atendimentos no momento</p>";
             }
-            echo "</table>\n";
+
+        } catch (Exception $e) {
+            echo $e;
+        } catch (PDOException $e) {
+            echo $e;
         }
     }
-    public function get_historico()
+
+
+
+    public function totalDeAtendimentos()
     {
-        return $this->set_historico($this->conn, $this->id);
+        try {
+            $query = 'SELECT COUNT(*) FROM pontuario WHERE id_paciente = :id';
+
+            $totalAtendimentos = $this->conn->prepare($query);
+            $totalAtendimentos->bindParam(':id', $this->id, PDO::PARAM_INT);
+            $totalAtendimentos->execute();
+
+            $resultado = $totalAtendimentos->fetch(PDO::FETCH_COLUMN);
+            echo $resultado;
+            
+        } catch (Exception $e) {
+            echo $e;
+        } catch (PDOException $e) {
+            echo $e;
+        }
     }
 }
 include_once "loginphp.php";
 include_once "../../configdb.php";
+include 'verifica_sessao.php';
 
-if (isset($_SESSION['id'])) {
-    $id = $_SESSION['id'];
 
-    $atendimeto = new Atendimento($conn, $id, $_POST['pontuario'], $_POST['observacoes'], $_POST['historico'], $_POST['examesResultado']);
-} else {
-    $id = "Cadastro nescessario";
-}
-
-if (isset($_SESSION['paciente'])) {
-    $paciente = $_SESSION['paciente'];
-} else {
-    $paciente = $_SESSION['paciente'] = "Usuario não logado";
-}
+$atendimeto = new Atendimento($conn, $id, );
