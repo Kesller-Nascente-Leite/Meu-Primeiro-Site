@@ -28,18 +28,21 @@ header>nav>button {
     cursor: pointer;
     transition-duration: 0.4s;
     border-radius: 5px;
+    gap: 10px;
+
 }
 
 button:hover {
     background-color: rgb(47, 47, 161);
 }
-#container{
+
+#container {
     background-color: white;
     border-radius: 2%;
 }
-#pemail,
-#psenha
-{
+
+
+#psenha {
     margin-top: 10px;
     border-radius: 5px;
     width: 50%;
@@ -47,30 +50,42 @@ button:hover {
     transition: all 0.3s ease;
 }
 
-#pemail:hover,
+
 #psenha:hover {
     border-color: #888;
 }
 
-#pemail:focus,
-#psenha:focus
-{
+
+#psenha:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
-#delete{
-    width: 10%;
+
+#Clique_aqui,#delete {
+    width: auto;
     transition: all 0.5s ease;
     margin-top: 2%;
-    border-radius: 20%;
+    border-radius: 15%;
     margin-left: 19%;
 }
-#delete:hover{
+
+#Clique_aqui,#delete:hover {
     border-color: #888;
 }
-#delete:focus{
+
+#Clique_aqui,#delete:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+#formulario {
+    display: none; /* O formulário começa escondido */
+    transform: translateY(-20%);
+}
+
+#erro{
+    margin-left: 13%;
+    color: red;
 }

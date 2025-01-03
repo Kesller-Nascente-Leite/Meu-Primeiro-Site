@@ -1,6 +1,9 @@
 <?php
 session_start();
-$msg = "";
+require "loginphp.php";
+require_once "../../configdb.php";
+require 'verifica_sessao.php';
+
 class Atendimento
 {
     private $conn;
@@ -12,7 +15,6 @@ class Atendimento
         $this->id = $id;
 
     }
-
 
 
     public function historico()
@@ -27,6 +29,7 @@ class Atendimento
         WHERE pontuario.id_paciente = :id';
 
             $vendoHistorico = $this->conn->prepare($query);
+            
             $vendoHistorico->bindParam(':id', $this->id, PDO::PARAM_INT);
             $vendoHistorico->execute();
 
@@ -80,9 +83,6 @@ class Atendimento
         }
     }
 }
-include_once "loginphp.php";
-include_once "../../configdb.php";
-include 'verifica_sessao.php';
 
 
 $atendimeto = new Atendimento($conn, $id, );

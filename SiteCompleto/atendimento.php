@@ -1,6 +1,6 @@
 <?php
 session_start();
-include_once "atendimentophp.php";
+require_once "atendimentophp.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">

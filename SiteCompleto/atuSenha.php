@@ -30,6 +30,7 @@
     <center>
         <h2>Digite seu email</h2>
         <div id="container">
+            
             <form method="post" autocomplete="on" action="<?php echo htmlspecialchars('atuSenhaphp.php'); ?>">
                 <label for="pemail">Email:
                     <input type="email" name="email" id="pemail" placeholder="Email" required>

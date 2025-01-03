@@ -1,19 +1,20 @@
 <?php
 session_start();
+require_once "../../configdb.php";
 
-$msg = "";
 
 class Cadastro
 {
+    private $conn;
     private $paciente;
     private $email;
     private $senha;
     private $sexo;
     private $nascimento;
     private $telefone;
-    private $conn;
-    
-    public function __construct($conn,$paciente, $email, $sexo, $senha, $nascimento, $telefone)
+
+
+    public function __construct($conn, $paciente, $email, $sexo, $senha, $nascimento, $telefone)
     {
 
         $this->conn = $conn;
@@ -25,8 +26,23 @@ class Cadastro
         $this->telefone = $telefone;
     }
 
+    public function checandoFormulario()
+    {
+        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['msg'] = "Formato de email inválido.";
+            header("Location: cadastro.php");
+            exit();
+        }
+        if ($_POST['enviar'] and empty($_POST['paciente']) or empty($_POST['email']) or empty($_POST['sexo']) or empty($_POST['senha']) or empty($_POST['nascimento']) or empty($_POST['telefone'])) {
+            $_SESSION['msg'] = "Você precisa Preencher o Cadastro";
+            header("location:cadastro.php");
+            exit();
+
+        }
+    }
+
     public function checandoEmail()
-    {        
+    {
 
         try {
 
@@ -36,9 +52,8 @@ class Cadastro
             $checandoStmt = $this->conn->prepare($checandoEmailquery);
             $checandoStmt->bindParam(':email', $this->email);
             $checandoStmt->execute();
-            
+
             if ($checandoStmt->rowCount() > 0) {
-                // E-mail já existe, redireciona de volta para a página de cadastro
                 $_SESSION['msg'] = "Email já cadastrado";
                 header("Location: cadastro.php");
                 exit();
@@ -49,7 +64,7 @@ class Cadastro
         }
     }
 
-    
+
     public function cadastrando()
     {
         try {
@@ -66,12 +81,16 @@ class Cadastro
             $enviando->bindParam(':telefone', $this->telefone);
             $enviando->bindParam(':sexo', $this->sexo);
 
-
-            // Executa a consulta
             if ($enviando->execute()) {
-                header("Location: index.php");
+                header("Location: site.php");
+                $_SESSION['paciente'] = $this->paciente;
+                $_SESSION['telefone'] = $this->telefone;
+                $_SESSION['data_nascimento'] = $this->nascimento;
+                $_SESSION['telefone'] = $this->telefone;
+                $_SESSION['sexo'] = $this->sexo;
+
                 exit();
-            } 
+            }
         } catch (PDOException $e) {
             echo "Erro ao acessar o banco de dados.";
         }
@@ -80,10 +99,10 @@ class Cadastro
 
 
 if (isset($_POST['enviar'])) {
-    include_once "../../configdb.php";
-    try {
-        $cadastro = new Cadastro($conn,$_POST['paciente'], $_POST['email'], $_POST['sexo'], $_POST['senha'], $_POST['nascimento'], $_POST['telefone']);
 
+    try {
+        $cadastro = new Cadastro($conn, $_POST['paciente'], $_POST['email'], $_POST['sexo'], $_POST['senha'], $_POST['nascimento'], $_POST['telefone']);
+        $cadastro->checandoFormulario();
         $cadastro->checandoEmail();
         $cadastro->cadastrando();
     } catch (Exception $e) {

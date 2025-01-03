@@ -1,45 +1,83 @@
 <?php
 session_start();
-include 'verifica_sessao.php';
+require 'verifica_sessao.php';
+require_once "../../configdb.php";
 
-try {
-    if (isset($_POST['submit'])) {
-        include "../../configdb.php";
+class Usuario
+{
+    private $conn;
+    private $email;
+    private $senha;
 
-        $email = $_POST['email'];
-        $senha = $_POST['senha'];
+    public function __construct($conn, $email, $senha)
+    {
+        $this->conn = $conn;
+        $this->email = $email;
+        $this->senha = $senha;
 
-        $sql = "SELECT * FROM paciente WHERE email = :email";
+    }
+    public function verificandoLogin()
+    {
+        if (empty($this->email) || empty($this->senha)) {
+            $_SESSION['msg'] = "Por favor, preencha todos os campos.";
+            header("Location: index.php");
+            exit();
 
-        $procurando = $conn->prepare($sql);
-        $procurando->bindParam(':email', $email);
-
-        if ($procurando->execute() and $procurando->rowCount() > 0) {
-
-
-            $usuario = $procurando->fetch(PDO::FETCH_ASSOC);
-            $id = $usuario['id'];
-
-
-            if (password_verify($senha, $usuario['senha'])) {
-                $_SESSION['paciente'] = $usuario['paciente'];
-                $_SESSION['id'] = $usuario['id'];
-                header("Location: site.php");
-                exit();
-            } else {
-                $_SESSION['msg'] = "Senha inválida";
-                header("Location: index.php");
-                exit();
-            }
-        } else {
-            $_SESSION['msg'] = "Email inválido";
+        }
+        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['msg'] = "Informações invalidas";
             header("Location: index.php");
             exit();
         }
     }
-} catch (PDOException $e) {
-    $_SESSION['msg'] = "Erro de conexão: " . $e->getMessage();
-    header("Location: index.php");
-    exit();
+
+    public function login()
+    {
+
+        try {
+
+            $query = "SELECT * FROM paciente WHERE email = :email";
+
+            $procurando = $this->conn->prepare($query);
+            $procurando->bindParam(':email', $this->email);
+
+            if ($procurando->execute() and $procurando->rowCount() > 0) {
+
+                $usuario = $procurando->fetch(PDO::FETCH_ASSOC);
+
+                if (password_verify($this->senha, $usuario['senha'])) {
+                    
+                    $_SESSION['id'] = $usuario['id'];
+                    $_SESSION['email'] = $usuario['email'];
+                    $_SESSION['paciente'] = $usuario['paciente'];
+                    $_SESSION['telefone'] = $usuario['telefone'];
+                    $_SESSION['data_nascimento'] = $usuario['data_nascimento'];
+                    $_SESSION['sexo'] = $usuario['id_sexo'];
+                    header("Location: site.php");
+                    exit();
+
+                } else {
+                    $_SESSION['msg'] = "Senha inválida";
+                    header("Location: index.php");
+                    exit();
+                }
+            } else {
+                $_SESSION['msg'] = "Email inválido";
+                header("Location: index.php");
+                exit();
+            }
+
+        } catch (PDOException $e) {
+            $_SESSION['msg'] = "Erro de conexão: " . $e->getMessage();
+            header("Location: index.php");
+            exit();
+        }
+    }
 }
 
+
+$login = new Usuario($conn, $_POST["email"], $_POST["senha"]);
+if (isset($_POST['submit'])) {
+    $login->verificandoLogin();
+    $login->login();
+}

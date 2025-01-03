@@ -1,15 +1,13 @@
+<?php
+
+require_once 'perfilphp.php';
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
-<?php
-session_start();
-include_once "../../configdb.php";
-if (isset($_SESSION['paciente'])) {
-    $paciente = $_SESSION['paciente'];
-} else {
-    $paciente = $_SESSION['paciente'] = "Usuario não logado";
-}
-?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,17 +23,16 @@ if (isset($_SESSION['paciente'])) {
             location.href = "perfil.php";
         }
 
-        function escuro() {
-            const tema = document.getElementsByTagName('escuro')[0];
-            tema.style
-            //dps arrumar isso para implementar o modo escuro
 
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const buttonCliqueAqui = document.getElementById('Clique_aqui');
+            const formulario = document.getElementById('formulario');
 
-        function deletar() {
-            const Delete = document.getElementsByName('delete');
-            Delete = confirm('você tem certeza?');
-        }
+            buttonCliqueAqui.addEventListener('click', function () {
+                formulario.style.display = 'block';
+                buttonCliqueAqui.remove();
+            });
+        });
     </script>
 </head>
 
@@ -49,34 +46,49 @@ if (isset($_SESSION['paciente'])) {
             <button type="submit" name="" value="perfil" aria-label="Perfil" onclick="perfil()">Perfil</button>
         </nav>
     </header>
+
     <article>
 
         <div id="container">
-        <h3>Nome da Conta <?php echo HTMLSPECIALCHARS($paciente); ?></h3>
-            <label for="Modo escuro">Modo Escuro:
-                Sim<input type="checkbox" name="escuto" onclick="escuro()">
-                Não<input type="checkbox">
+            <h1>Informações Do Paciente</h1>
+            <?php
+            session_start();
 
-                <form action="<?php echo htmlspecialchars('perfilphp.php'); ?>" method="post">
-            </label><br>
-            <label for="Deletar a conta">Delete sua conta:<br>
 
-                <input type="email" placeholder="Confirme o seu Email" name="email" id="pemail" required maxlength="100"><br>
+            if (isset($_SESSION['id'])) {
+                echo "<h1>Bem-vindo {$_SESSION['paciente']}!</h1>";
+                echo "<p>Email: {$_SESSION['email']}</p>";
+                echo "<p>Telefone: {$_SESSION['telefone']}</p>";
+                echo "<p>Data de Nascimento: {$_SESSION['data_nascimento']}</p>";
+                $sexo = $_SESSION['sexo'] == 1 ? 'Masculino' : 'Feminino';
+                echo "<p>Sexo: $sexo</p>";
+            } else {
+                echo "Usuário não autenticado.";
+                header("Location: index.php");
+                exit();
+            }
+            ?>
 
-                <input type="password" placeholder="Confirme a Sua senha" name="senha" id="psenha"><br>
 
-                <?php
-                session_start();
-                if (isset($_SESSION['msg'])) {
-                    echo "<p style='color: red;'>" . $_SESSION['msg'] . "</p>";
-                    unset($_SESSION['msg']);
-                }
-                ?>
+            <label for="Deletar a conta">
 
-                <input type="submit" name="delete" id="delete" value="Deletar"><br>
+            <input type="button" id="Clique_aqui" value="Clique aqui"><br>
 
-                </form>
-            </label>
+            <form id="formulario" action="<?php echo htmlspecialchars('perfilphp.php'); ?>" method="post">
+                </label><br>
+
+                <input type="password" placeholder="Confirme a Sua senha" name="senha" id="psenha" required><br>
+
+                <input type="submit" name="delete" id="delete" value="Confirmar">
+
+            </form>
+            <?php
+            session_start();
+            if (isset($_SESSION['msg'])) {
+                echo "<p id='erro'>" . $_SESSION['msg'] . "</p>";
+                unset($_SESSION['msg']);
+            }
+            ?>
         </div>
     </article>
 
